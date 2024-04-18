@@ -57,6 +57,7 @@
   padding: 12px 23px 13px 23px;
   width: 485px;
   height: 74px;
+  position: relative;
 }
 
 .form-input {
@@ -69,4 +70,25 @@
   line-height: 22px;
   color: #6933dc;
   font-family: "Museo Sans Cyrl Bold", sans-serif;
+}
+
+.form-label {
+  font-size: 18px;
+  line-height: 22px;
+  color: #333333;
+  position: absolute;
+  left: 23px;
+  top: 26px;
+  transition: 0.2s ease all;
+}
+
+.form-input:focus ~ .form-label,
+.form-input:not(:focus):valid ~ .form-label {
+  top: 12px;
+}
+
+.form-input:valid,
+.form-input:focus {
+  margin-top: 27px;
+  height: auto;
 }
