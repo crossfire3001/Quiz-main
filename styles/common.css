@@ -1,0 +1,62 @@
+/*=============== BASE ===============*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Museo Sans Cyrl", sans-serif;
+  color: #333333;
+}
+
+a {
+  color: #6933dc;
+}
+
+/*=============== FONTS ===============*/
+@font-face {
+  font-family: "Museo Sans Cyrl";
+  src: url("../fonts/MuseoSansCyrl-500.ttf");
+}
+
+@font-face {
+  font-family: "Museo Sans Cyrl Bold";
+  src: url("../fonts/MuseoSansCyrl-700.ttf");
+}
+
+/*=============== REUSABLE CSS CLASSES ===============*/
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/*=============== HEADER ===============*/
+.header {
+  padding: 42px 0 40px;
+}
+
+.button {
+  padding: 14px 35px;
+  background: #6933dc;
+  border-radius: 6px;
+  font-size: 17px;
+  line-height: 20px;
+  color: #ffffff;
+  border: 0;
+  transition: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #32098a;
+}
+
+/*=============== FOOTER ===============*/
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 13px;
+  line-height: 16px;
+  color: #dcdcf3;
+}
