@@ -60,7 +60,14 @@ a {
 }
 
 .button:hover {
+  color: #FFFFFF;
   background: #32098a;
+}
+
+.button-transparent {
+  background: transparent;
+  color: #6933dc;
+  border: 1px solid #6933dc;
 }
 
 /*=============== FOOTER ===============*/
