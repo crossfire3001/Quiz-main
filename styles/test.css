@@ -74,3 +74,49 @@
   justify-content: flex-end;
   margin-top: 10px;
 }
+
+.pass-question a {
+  font-size: 17px;
+  line-height: 20px;
+  color: #6933dc;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.pass-question a:hover {
+  text-decoration: underline;
+}
+
+.pass-question a img {
+  margin-left: 13px;
+}
+
+input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 3px solid #6933dc;
+  border-radius: 50%;
+  margin: 0 13px 0 0;
+  transform: translateY(2px);
+
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: inset 10px 10px #6933dc;
+  transition: 0.2s ease transform;
+  transform: scale(0);
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}

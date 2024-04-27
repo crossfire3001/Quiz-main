@@ -60,7 +60,6 @@ a {
 }
 
 .button:hover {
-  color: #FFFFFF;
   background: #32098a;
 }
 
@@ -68,6 +67,11 @@ a {
   background: transparent;
   color: #6933dc;
   border: 1px solid #6933dc;
+}
+
+.button-transparent:hover {
+  background: #6933dc;
+  color: white;
 }
 
 /*=============== FOOTER ===============*/
