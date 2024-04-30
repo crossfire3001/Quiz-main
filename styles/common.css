@@ -45,6 +45,7 @@ a {
 /*=============== HEADER ===============*/
 .header {
   padding: 42px 0 40px;
+  border-bottom: 1px solid #dcdcf3;
 }
 
 .button {
