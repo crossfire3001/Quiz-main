@@ -58,6 +58,11 @@ a {
   border: 0;
   transition: 0.4s;
   cursor: pointer;
+  text-decoration: none;
+}
+
+a.button {
+  display: inline-block;
 }
 
 .button:hover {
