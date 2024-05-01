@@ -69,6 +69,11 @@ a.button {
   background: #32098a;
 }
 
+.button:disabled {
+  background-color: #e2dfe7;
+  cursor: not-allowed;
+}
+
 .button-transparent {
   background: transparent;
   color: #6933dc;
