@@ -45,7 +45,9 @@
 
       // кнопка "Перейти к выбору теста"
       this.processElement = document.getElementById("process");
-      this.processElement.onchange = function () {};
+      this.processElement.onclick = function () {
+        that.processForm();
+      };
     },
     // валидация полей
     validateField(field, element) {
@@ -62,13 +64,32 @@
     validateForm() {
       // проверка каждого поля на валидность
       const validForm = this.fields.every((field) => field.valid);
-      // если есть чекбокс чекнут и форма валидна
-      if (this.agreeElement.checked && validForm) {
+      // сохраняем результат чтобы использовать в processForm
+      const isValid = this.agreeElement.checked && validForm;
+      // если чекбокс чекнут и форма валидна
+      if (isValid) {
         // убираем атрибут с кнопки для нажатия
         this.processElement.removeAttribute("disabled");
       } else {
         // если какое-либо поле не валидно, то обратно добавляем атрибут "disabled" на кнопку "Перейти выбору к теста"
         this.processElement.setAttribute("disabled", "disabled");
+      }
+      // возвращаем результат этой функции для дальнейшего использования
+      return isValid;
+    },
+    processForm() {
+      // если форма валидна переносим на следующую страницу
+      if (this.validateForm()) {
+        let paramString = "";
+        this.fields.forEach((field) => {
+          // проходимся циклом по полям, первый параметр идет с ?, а 2 других уже с &
+          // name - name, lastName, email
+          // field.element.value - значение поля
+          paramString +=
+            (!paramString ? "?" : "&") + field.name + "=" + field.element.value;
+        });
+
+        location.href = "choice.html" + paramString;
       }
     },
   };
