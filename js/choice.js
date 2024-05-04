@@ -28,7 +28,40 @@
       }
     },
     // вызов функции после получения всех необходимых данных
-    processQuizzes() {},
+    processQuizzes() {
+      // создаем тут переменную, чтобы не искать заново при каждом проходе цикла
+      const choiceOptionsElement = document.getElementById("choice-options");
+      // если у нас есть хотябы 1 тест
+      if (this.quizzes && this.quizzes.length > 0) {
+        this.quizzes.forEach((quiz) => {
+          // создаем div
+          const choiceOptionElement = document.createElement("div");
+          // даем название div элементу
+          choiceOptionElement.className = "choice-option";
+
+          const choiceOptionTextElement = document.createElement("div");
+          choiceOptionTextElement.className = "choice-option-text";
+          // название теста
+          choiceOptionTextElement.innerText = quiz.name;
+
+          const choiceOptionArrowElement = document.createElement("div");
+          choiceOptionArrowElement.className = "choice-option-arrow";
+
+          const choiceOptionImageElement = document.createElement("img");
+          choiceOptionImageElement.setAttribute("src", "img/arrow.png");
+          choiceOptionImageElement.setAttribute("alt", "Стрелка");
+
+          // вставляем картинку внутрь стрелки
+          choiceOptionArrowElement.appendChild(choiceOptionImageElement);
+          // вставляем внутрь choice-option 2 элемента: текст и стрелку
+          choiceOptionElement.appendChild(choiceOptionTextElement);
+          choiceOptionElement.appendChild(choiceOptionArrowElement);
+
+          // вставляем наш choice-option в choice-options
+          choiceOptionsElement.appendChild(choiceOptionElement);
+        });
+      }
+    },
   };
 
   Choice.init();
