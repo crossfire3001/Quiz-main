@@ -34,10 +34,17 @@
       // если у нас есть хотябы 1 тест
       if (this.quizzes && this.quizzes.length > 0) {
         this.quizzes.forEach((quiz) => {
+          const that = this;
           // создаем div
           const choiceOptionElement = document.createElement("div");
           // даем название div элементу
           choiceOptionElement.className = "choice-option";
+          // добавляем id к каждому тесту, чтобы мы знали на какой тест мы нажали
+          choiceOptionElement.setAttribute("data-id", quiz.id);
+          // переход на другую страницу при нажатии на choice-option
+          choiceOptionElement.onclick = function () {
+            that.chooseQuiz(this);
+          };
 
           const choiceOptionTextElement = document.createElement("div");
           choiceOptionTextElement.className = "choice-option-text";
@@ -60,6 +67,16 @@
           // вставляем наш choice-option в choice-options
           choiceOptionsElement.appendChild(choiceOptionElement);
         });
+      }
+    },
+    // переход на следующую страницу
+    chooseQuiz(element) {
+      // id наших тестов сохраняем в dataId
+      const dataId = element.getAttribute("data-id");
+      // если id  у нас есть, то мы переводим пользователя на следующую страницу
+      if (dataId) {
+        // переводим на новую страницу с данными от поисковой строки и добавляем id теста
+        location.href = "test.html" + location.search + "&id=" + dataId;
       }
     },
   };
