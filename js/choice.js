@@ -31,6 +31,7 @@
     processQuizzes() {
       // создаем тут переменную, чтобы не искать заново при каждом проходе цикла
       const choiceOptionsElement = document.getElementById("choice-options");
+      console.log(choiceOptionsElement);
       // если у нас есть хотябы 1 тест
       if (this.quizzes && this.quizzes.length > 0) {
         this.quizzes.forEach((quiz) => {
@@ -83,3 +84,5 @@
 
   Choice.init();
 })();
+
+
