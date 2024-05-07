@@ -47,11 +47,7 @@
       const activeQuestion = this.quiz.questions[this.currentQuestionIndex - 1];
 
       // создание вопроса в HTML
-      this.questionTitleElement.innerHTML =
-        "<span>Вопрос " +
-        this.currentQuestionIndex +
-        ":</span> " +
-        activeQuestion.question;
+      this.questionTitleElement.innerHTML = `<span>Вопрос ${this.currentQuestionIndex}: </span> ${activeQuestion.question}`;
     },
   };
 
