@@ -1,6 +1,9 @@
 (function () {
   const Test = {
     quiz: null,
+    questionTitleElement: null,
+    // опрос всегда должен начинатся с самого первого задания
+    currentQuestionIndex: 1,
     init() {
       checkUserData();
       // данные пользователя в поисковой строке
@@ -32,7 +35,23 @@
     },
     // начало теста
     startQuiz() {
-        console.log(this.quiz);
+      console.log(this.quiz);
+      // берем название вопроса
+      this.questionTitleElement = document.getElementById("title");
+
+      this.showQuestion();
+    },
+    // показать вопрос
+    showQuestion() {
+      // старт опроса с индекса 0
+      const activeQuestion = this.quiz.questions[this.currentQuestionIndex - 1];
+
+      // создание вопроса в HTML
+      this.questionTitleElement.innerHTML =
+        "<span>Вопрос " +
+        this.currentQuestionIndex +
+        ":</span> " +
+        activeQuestion.question;
     },
   };
 
