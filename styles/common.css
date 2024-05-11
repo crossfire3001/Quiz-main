@@ -85,6 +85,12 @@ a.button {
   color: white;
 }
 
+.button-transparent:disabled {
+  background: transparent;
+  color: #e2dfe7;
+  border: 1px solid #e2dfe7;
+}
+
 /*=============== MAIN ===============*/
 .big-title {
   font-family: "Museo Sans Cyrl Bold", sans-serif;

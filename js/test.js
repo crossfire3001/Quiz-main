@@ -1,5 +1,7 @@
 (function () {
   const Test = {
+    prevButtonElement: null,
+    nextButtonElement: null,
     quiz: null,
     questionTitleElement: null,
     optionsElement: null,
@@ -41,6 +43,12 @@
       this.questionTitleElement = document.getElementById("title");
       // берем названия ответов
       this.optionsElement = document.getElementById("options");
+      // кнопка "Дальше"
+      this.nextButtonElement = document.getElementById("next");
+      // привязка клика к действию
+      this.nextButtonElement.onclick = this.move.bind(this, "next"); // 'this === move, 'next' === action
+      // кнопка "Назад"
+      this.prevButtonElement = document.getElementById("prev");
 
       this.showQuestion();
     },
@@ -54,6 +62,7 @@
 
       // создание пуского HTML внутри .test-question-options
       this.optionsElement.innerHTML = "";
+      const that = this;
       // перебираем ответы
       activeQuestion.answers.forEach((answer) => {
         const optionElement = document.createElement("div");
@@ -67,6 +76,11 @@
         inputElement.setAttribute("name", "answer");
         inputElement.setAttribute("value", answer.id);
 
+        // если выбран ответ
+        inputElement.onchange = function () {
+          that.chooseAnswer();
+        };
+
         const labelElement = document.createElement("label");
         labelElement.setAttribute("for", inputId);
         // вариант ответа на вопрос внутри label
@@ -79,6 +93,24 @@
         // помещаем внутри .test-question-options: .test-question-option
         this.optionsElement.appendChild(optionElement);
       });
+    },
+    // выбран ответ
+    chooseAnswer() {
+      // при выбранном ответе убирается disable и на кнопку можно нажать
+      this.nextButtonElement.removeAttribute("disabled");
+    },
+    move(action) {
+      // если мы нажали "Дальше" или "Пропустить вопрос"
+      if (action === "next" || action === "pass") {
+        // переходим к следующему вопросу
+        this.currentQuestionIndex++;
+      } else {
+        // переходим на предыдущий вопрос
+        this.currentQuestionIndex--;
+      }
+
+      // показать вопрос
+      this.showQuestion();
     },
   };
 
