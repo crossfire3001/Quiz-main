@@ -7,6 +7,7 @@
     optionsElement: null,
     // опрос всегда должен начинатся с самого первого задания
     currentQuestionIndex: 1,
+    userResult: [],
     init() {
       checkUserData();
       // данные пользователя в поисковой строке
@@ -43,12 +44,19 @@
       this.questionTitleElement = document.getElementById("title");
       // берем названия ответов
       this.optionsElement = document.getElementById("options");
+
       // кнопка "Дальше"
       this.nextButtonElement = document.getElementById("next");
       // привязка клика к действию
       this.nextButtonElement.onclick = this.move.bind(this, "next"); // 'this === move, 'next' === action
+
+      // пропустить вопрос
+      this.passButtonElement = document.getElementById("pass");
+      this.passButtonElement.onclick = this.move.bind(this, "pass");
+
       // кнопка "Назад"
       this.prevButtonElement = document.getElementById("prev");
+      this.prevButtonElement.onclick = this.move.bind(this, "prev");
 
       this.showQuestion();
     },
@@ -93,6 +101,20 @@
         // помещаем внутри .test-question-options: .test-question-option
         this.optionsElement.appendChild(optionElement);
       });
+      // пока не выбрали ответ, кнопка будет не активна
+      this.nextButtonElement.setAttribute("disabled", "disabled");
+      // если длинна вопроса будет равна длинне всего QUIZ, то кнопка изменится на 'завершить' в данном случае 5 вопросов
+      if (this.currentQuestionIndex === this.quiz.questions.length) {
+        this.nextButtonElement.innerText = "Заверишть";
+      } else {
+        this.nextButtonElement.innerText = "Далее";
+      }
+      // если у нас уже был выбран 1 ответ, то мы можем нажать кнопку "Назад"
+      if (this.currentQuestionIndex > 1) {
+        this.prevButtonElement.removeAttribute("disabled");
+      } else {
+        this.prevButtonElement.setAttribute("disabled", "disabled");
+      }
     },
     // выбран ответ
     chooseAnswer() {
