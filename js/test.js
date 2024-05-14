@@ -79,6 +79,8 @@
         // добавляем к input ответ с id
         const inputId = "answer-" + answer.id;
         const inputElement = document.createElement("input");
+        // варианты ответа, их всего 3
+        inputElement.className = "option-answer";
         inputElement.setAttribute("id", inputId);
         inputElement.setAttribute("type", "radio");
         inputElement.setAttribute("name", "answer");
@@ -122,6 +124,29 @@
       this.nextButtonElement.removeAttribute("disabled");
     },
     move(action) {
+      const activeQuestion = this.quiz.questions[this.currentQuestionIndex - 1];
+      // из наших вариантов ответа их всего 3, создаем массив и возвращаем выбранный 1 ответ
+      const chosenAnswer = Array.from(
+        document.getElementsByClassName("option-answer")
+      ).find((element) => {
+        return element.checked;
+      });
+
+      let chosenAnswerId = null;
+      // у каждого ответа свой id, мы сохраняем ответ с определенным id в переменной chosenAnswerId
+      if (chosenAnswer && chosenAnswer.value) {
+        chosenAnswerId = Number(chosenAnswer.value);
+      }
+
+      // сохраняем наши ответы
+      this.userResult.push({
+        // сохранение вопроса
+        questionId: activeQuestion.id,
+        // сохранение ответа на вопрос
+        chosenAnswerId: chosenAnswerId,
+      });
+      console.log(this.userResult);
+
       // если мы нажали "Дальше" или "Пропустить вопрос"
       if (action === "next" || action === "pass") {
         // переходим к следующему вопросу
