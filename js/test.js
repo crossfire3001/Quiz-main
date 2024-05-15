@@ -71,6 +71,10 @@
       // создание пуского HTML внутри .test-question-options
       this.optionsElement.innerHTML = "";
       const that = this;
+      // проверяем если ли у нас результат этого вопроса в наших данных
+      const chosenOption = this.userResult.find(
+        (item) => item.questionId === activeQuestion.id
+      );
       // перебираем ответы
       activeQuestion.answers.forEach((answer) => {
         const optionElement = document.createElement("div");
@@ -85,6 +89,10 @@
         inputElement.setAttribute("type", "radio");
         inputElement.setAttribute("name", "answer");
         inputElement.setAttribute("value", answer.id);
+        // если мы уже выбрали ответ, он у нас будет оставатся выбранным при нажатии на кнопке "Назад"
+        if (chosenOption && chosenOption.chosenAnswerId === answer.id) {
+          inputElement.setAttribute("checked", "checked");
+        }
 
         // если выбран ответ
         inputElement.onchange = function () {
@@ -103,8 +111,14 @@
         // помещаем внутри .test-question-options: .test-question-option
         this.optionsElement.appendChild(optionElement);
       });
-      // пока не выбрали ответ, кнопка будет не активна
-      this.nextButtonElement.setAttribute("disabled", "disabled");
+      // если выбран какой-либо из вариантов ответа, то кнопка "Далее" будет активна
+      if (chosenOption && chosenOption.chosenAnswerId) {
+        this.nextButtonElement.removeAttribute("disabled");
+      } else {
+        // пока не выбрали ответ, кнопка будет не активна
+        this.nextButtonElement.setAttribute("disabled", "disabled");
+      }
+
       // если длинна вопроса будет равна длинне всего QUIZ, то кнопка изменится на 'завершить' в данном случае 5 вопросов
       if (this.currentQuestionIndex === this.quiz.questions.length) {
         this.nextButtonElement.innerText = "Заверишть";
@@ -138,13 +152,24 @@
         chosenAnswerId = Number(chosenAnswer.value);
       }
 
-      // сохраняем наши ответы
-      this.userResult.push({
-        // сохранение вопроса
-        questionId: activeQuestion.id,
-        // сохранение ответа на вопрос
-        chosenAnswerId: chosenAnswerId,
+      // создаем переменную в которую был сохранен результат теста
+      const existingResult = this.userResult.find((item) => {
+        return item.questionId === activeQuestion.id;
       });
+
+      // если ответ уже был, то мы будем его изменять
+      if (existingResult) {
+        existingResult.chosenAnswerId === chosenAnswerId;
+      } else {
+        // сохраняем наши ответы
+        this.userResult.push({
+          // сохранение вопроса
+          questionId: activeQuestion.id,
+          // сохранение ответа на вопрос
+          chosenAnswerId: chosenAnswerId,
+        });
+      }
+
       console.log(this.userResult);
 
       // если мы нажали "Дальше" или "Пропустить вопрос"
