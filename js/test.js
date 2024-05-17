@@ -1,5 +1,6 @@
 (function () {
   const Test = {
+    progressBarElement: null,
     prevButtonElement: null,
     nextButtonElement: null,
     quiz: null,
@@ -40,6 +41,8 @@
     // начало теста
     startQuiz() {
       console.log(this.quiz);
+      this.progressBarElement = document.getElementById("progress-bar");
+      document.getElementById("pre-title").innerText = this.quiz.name;
       // берем название вопроса
       this.questionTitleElement = document.getElementById("title");
       // берем названия ответов
@@ -58,7 +61,29 @@
       this.prevButtonElement = document.getElementById("prev");
       this.prevButtonElement.onclick = this.move.bind(this, "prev");
 
+      // вывод прогресс бара будет в самом начале
+      this.prepareProgressBar();
       this.showQuestion();
+    },
+    prepareProgressBar() {
+      // определяем длинну прогресс бара по количеству вопросов
+      for (let i = 0; i < this.quiz.questions.length; i++) {
+        const itemElement = document.createElement("div");
+        itemElement.className =
+          "test-progress-bar-item " + (i === 0 ? "active" : "");
+
+        const itemCircleElement = document.createElement("div");
+        itemCircleElement.className = "test-progress-bar-item-circle";
+
+        const itemTextElement = document.createElement("div");
+        itemTextElement.className = "test-progress-bar-item-text";
+        itemTextElement.innerText = "Вопрос " + (i + 1);
+
+        itemElement.appendChild(itemCircleElement);
+        itemElement.appendChild(itemTextElement);
+
+        this.progressBarElement.appendChild(itemElement);
+      }
     },
     // показать вопрос
     showQuestion() {
@@ -180,6 +205,18 @@
         // переходим на предыдущий вопрос
         this.currentQuestionIndex--;
       }
+
+      Array.from(this.progressBarElement.children).forEach((item, index) => {
+        const currentItemIndex = index + 1;
+        item.classList.remove("complete");
+        item.classList.remove("active");
+
+        if (currentItemIndex === this.currentQuestionIndex) {
+          item.classList.add("active");
+        } else if (currentItemIndex < this.currentQuestionIndex) {
+          item.classList.add("complete");
+        }
+      });
 
       // показать вопрос
       this.showQuestion();
