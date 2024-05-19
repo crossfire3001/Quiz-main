@@ -2,6 +2,7 @@
   const Final = {
     quiz: null,
     questionTitleElement: null,
+    question: null,
     init() {
       checkUserData();
       // данные пользователя в поисковой строке
@@ -22,20 +23,33 @@
       this.showResults();
     },
     showResults() {
-      const resultsContainer = document.createElement("div");
-      resultsContainer.className = "results-container";
-      console.log(this.quiz);
+      //const resultsContainer = document.createElement("div");
+      //resultsContainer.className = "results-container";
+      //console.log(this.quiz);
       //resultsContainer.innerHTML = `<p><strong>${this.quiz.name} Результаты теста</strong></p>`; Заголовок
       //resultsContainer.innerHTML = `<p>${this.quiz.questions[0].question} Результаты теста</p>`; // название вопроса
-      resultsContainer.innerHTML = `<p>${this.quiz.questions[0].question} Результаты теста</p>`;
+      //resultsContainer.innerHTML = `<p>${this.quiz.questions[0].question} Результаты теста</p>`;
+      const resultsContainer = document.getElementById("results");
 
-      //this.questionTitleElement.innerHTML = `<span>Вопрос ${this.quiz.questions.question}`;
+      for (let i = 0; i < this.quiz.questions.length; i++) {
+        const question = this.quiz.questions[i];
 
-      //this.quiz.innerHTML = `<p><strong>${this.quiz} Результаты теста</strong></p>`;
+        const resultContainer = document.createElement("div");
+        resultContainer.className = "result-container";
+        // Здесь предполагается, что question имеет свойство `question`, содержащее текст вопроса.
+        resultContainer.innerHTML = `<p>${question.question} Результаты теста</p>`;
+        resultsContainer.appendChild(resultContainer);
+        console.log(question.question);
+        console.log(question.question);
+      }
 
       const preTitle = document.getElementById("pre-title");
       preTitle.appendChild(resultsContainer);
     },
+
+    //this.questionTitleElement.innerHTML = `<span>Вопрос ${this.quiz.questions.question}`;
+
+    //this.quiz.innerHTML = `<p><strong>${this.quiz} Результаты теста</strong></p>`;
   };
 
   Final.init();
